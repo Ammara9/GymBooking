@@ -1,0 +1,62 @@
+﻿@model List<GymBooking.Models.ViewModels.GymClassViewModel>
+
+@{
+    ViewData["Title"] = "Gym Classes";
+}
+@if (TempData["CreateMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["CreateMessage"]
+    </div>
+}
+
+<h2 class="py-4">Available Gym Classes</h2>
+
+@if (User.Identity!.IsAuthenticated)
+{
+    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a class="btn btn-dark" asp-action="Create">Create New</a>
+        </p>
+    }
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card bg-light shadow-sm">
+                <div class="card-header text-center bg-success text-white">
+                    <h4 class="card-title">@item.Name</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Start Time:</strong> @item.StartTime.ToString("g")</p>
+                    <p><strong>Duration:</strong> @item.Duration.ToString(@"hh\:mm")</p>
+                    <p><strong>Description:</strong> @item.Description</p>
+                </div>
+                <div class="card-footer text-center">
+                    <!-- Show buttons based on user authentication and roles -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (item.IsBooked)
+                        {
+                            <a class="btn btn-dark btn-sm" asp-action="BookingToggle" asp-route-id="@item.Id">Unbook</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success btn-sm" asp-action="BookingToggle" asp-route-id="@item.Id">Book</a>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-secondary btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

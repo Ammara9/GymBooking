@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GymBooking.Models.GymClass>
+
+@{
+    ViewData["Title"] = "Booked Classes";
+}
+
+<h2 class="py-4">Your Booked Classes</h2>
+
+@if (!Model.Any())
+{
+    <p>You haven't booked any classes yet.</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card bg-light shadow-sm">
+                    <div class="card-header text-center bg-dark text-white">
+                        <h4 class="card-title">@item.Name</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Start Time:</strong> @item.StartTime.ToString("g")</p>
+                        <p><strong>Duration:</strong> @item.Duration</p>
+                        <p><strong>Description:</strong> @item.Description</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">View Details</a>
+                        <a class="btn btn-warning btn-sm" asp-action="BookingToggle" asp-route-id="@item.Id">Unbook</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

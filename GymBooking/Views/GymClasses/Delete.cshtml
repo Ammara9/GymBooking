@@ -1,0 +1,40 @@
+﻿@model GymBooking.Models.GymClass
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container py-5">
+    @* <h1 class="text-center py-4">@ViewData["Title"]</h1> *@
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center text-danger">Are you sure you want to delete this?</h3>
+            <h4 class="card-title">Gym Class Details</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold">Name:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-3 fw-bold">Start Time:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.StartTime)</dd>
+
+                <dt class="col-sm-3 fw-bold">Duration:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Duration)</dd>
+
+                <dt class="col-sm-3 fw-bold">Description:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+            </dl>
+
+            <div class="text-center">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+                </form>
+
+                <a asp-action="Index" class="btn btn-link mt-3">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>

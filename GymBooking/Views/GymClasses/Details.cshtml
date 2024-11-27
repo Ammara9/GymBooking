@@ -1,0 +1,57 @@
+﻿@model GymBooking.Models.GymClass
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@if (TempData["BookingMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["BookingMessage"]
+    </div>
+}
+
+<div class="container py-4">
+    @* <h1 class="text-center py-4">@ViewData["Title"]</h1> *@
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Gym Class Details</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold">Name:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-3 fw-bold">Start Time:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.StartTime)</dd>
+
+                <dt class="col-sm-3 fw-bold">Duration:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Duration)</dd>
+
+                <dt class="col-sm-3 fw-bold">Description:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+            </dl>
+        </div>
+    </div>
+
+   @*  @if (User.Identity!.IsAuthenticated)
+    {
+        @if (User.IsInRole("Admin"))
+        {
+           
+        }
+    } *@
+
+    <h3 class="mt-4">Attending Members</h3>
+    <ul class="list-group">
+        @foreach (var attendee in Model.AttendingMembers)
+        {
+            <li class="list-group-item">@attendee.ApplicationUser.FullName</li>
+        }
+    </ul>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-link">Back to List</a>
+    </div>
+</div>
